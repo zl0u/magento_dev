@@ -8,10 +8,12 @@
             </arguments>
         </referenceBlock>
         <referenceContainer name="sidebar.main">
-            <block class="Magento\Framework\View\Element\Template" name="gorban.promo.block"
-                   as="promo_block"
-                   template="Magento_Theme::gorban/sidebar_promo_block.phtml">
-            </block>
+            <container name="gorban.sidebar.main" htmlTag="div" htmlClass="sidebar-gorban">
+                <block class="Magento\Framework\View\Element\Template" name="gorban.promo.block"
+                       as="promo_block"
+                       template="Magento_Theme::gorban/sidebar_promo_block.phtml">
+                </block>
+            </container>
         </referenceContainer>
     </body>
 </page>
