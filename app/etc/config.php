@@ -5,6 +5,7 @@ return [
         'Magento_Directory' => 1,
         'Magento_Eav' => 1,
         'Magento_Theme' => 1,
+        'GorbanSv_CustomModule' => 1,
         'Magento_Cms' => 1,
         'Magento_Customer' => 1,
         'Magento_AdminNotification' => 1,
