@@ -16,4 +16,12 @@ class CustomBlock extends \Magento\Framework\View\Element\Template
 
         return $this;
     }
+
+    /**
+     * get JsonResponse Url
+     */
+    public function getJsonResponseUrl()
+    {
+        return $this->getUrl('home_work/jsonresponse/index');
+    }
 }

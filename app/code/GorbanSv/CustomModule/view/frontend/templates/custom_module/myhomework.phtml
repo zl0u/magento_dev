@@ -10,4 +10,8 @@
     <?php if ($block->getName() && $block->getLastname()):?>
         <h3>My mame is <?php echo $block->getName() . ' ' . $block->getLastname();?></h3>
     <?php endif;?>
+
+    <?php if ($block->getJsonResponseUrl()):?>
+        <a href="<?php echo $block->getJsonResponseUrl() ?>">Link to JSON controller</a>
+    <?php endif;?>
 </div>
