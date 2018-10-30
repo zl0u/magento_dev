@@ -3,7 +3,11 @@
 ?>
 
 <div class="content-wrapper">
-  <h1>
-    <span>My homework custom block!</span>
-  </h1>
+    <h1>
+        <span>My homework custom block!</span>
+    </h1>
+
+    <?php if ($block->getName() && $block->getLastname()):?>
+        <h3>My mame is <?php echo $block->getName() . ' ' . $block->getLastname();?></h3>
+    <?php endif;?>
 </div>

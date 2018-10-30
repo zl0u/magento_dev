@@ -15,6 +15,9 @@ class Index extends \Magento\Framework\App\Action\Action
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage ->addHandle('custom_handle');
 
+        $resultPage->getLayout()->getBlock('gorbansv.custom.block')->setName('Sergey');
+        $resultPage->getLayout()->getBlock('gorbansv.custom.block')->setLastname('Gorban');
+
         return $resultPage;
     }
 }
