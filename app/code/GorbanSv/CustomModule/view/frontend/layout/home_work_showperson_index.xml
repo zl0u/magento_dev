@@ -6,7 +6,7 @@
                        htmlTag="div"
                        htmlClass="gorbansv-content"
                        after="-">
-                <block class="Magento\Framework\View\Element\Template"
+                <block class="GorbanSv\CustomModule\Block\CustomBlock"
                        name="gorbansv.custom.block"
                        as="CustomBlock"
                        template="GorbanSv_CustomModule::custom_module/myhomework.phtml"/>
