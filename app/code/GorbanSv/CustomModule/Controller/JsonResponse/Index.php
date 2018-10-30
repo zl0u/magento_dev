@@ -14,7 +14,9 @@ class Index extends \Magento\Framework\App\Action\Action
     {
         /** @var \Magento\Framework\Controller\Result\Json $controllerResult */
         $controllerResult = $this->resultFactory->create(ResultFactory::TYPE_JSON);
-        $data = ['content' => "JsonResponse"];
+
+        $data = ['DefaultRouterIs' => $this->getRequest()->getRouteName()];
+
         return $controllerResult->setData($data);
     }
 }
