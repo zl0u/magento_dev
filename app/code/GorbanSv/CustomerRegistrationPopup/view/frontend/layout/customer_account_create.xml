@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="gorbansv.dealer_registration.layout"
+                       htmlTag="div"
+                       htmlClass="dealer-registration-content"
+                       before="customer_form_register">
+                <block class="Magento\Customer\Block\Form\Register"
+                       name="gorbansv.dealer_registration.block"
+                       as="dealer_registration"
+                       template="GorbanSv_CustomerRegistrationPopup::form/dealer_registration.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>
