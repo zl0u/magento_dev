@@ -1,15 +1,11 @@
 //
-//  Dropdowns variables
-//  _____________________________________________
-
-@dropdown-list__border: 3px solid #006400;
-
-//
 //  Common
 //  _____________________________________________
 
 & when (@media-common = true) {
-  .example-dropdown-5 {
-    .lib-dropdown();
-  }
+    .example-dropdown-5 {
+        .lib-dropdown(
+            @_dropdown-list-border: 3px solid #006400
+        );
+    }
 }
