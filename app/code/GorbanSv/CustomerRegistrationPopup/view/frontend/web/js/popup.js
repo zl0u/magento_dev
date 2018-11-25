@@ -3,7 +3,7 @@ define([
     'Magento_Ui/js/modal/modal',
 ], function ($, modal) {
     return function (config) {
-        let options = {
+        var options = {
             type: 'popup',
             responsive: true,
             innerScroll: true,
@@ -17,11 +17,14 @@ define([
             }]
         };
 
-        modal(options, $('#dealer-registration-pop'));
+        var pop_el = $('#dealer-registration-pop'),
+            popup = modal(options, pop_el);
 
         $("#dealer-registration").on('click', function () {
-            $('#dealer-registration-pop-inner').html($('.form-create-account').html());
-            $("#dealer-registration-pop").modal("openModal");
+            popup.openModal();
+            pop_el.trigger('contentUpdated');
+
+            return false;
         });
     };
 });

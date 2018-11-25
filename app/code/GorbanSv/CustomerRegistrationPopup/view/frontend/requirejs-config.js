@@ -1,8 +1,7 @@
-const config = {
-    paths: {
-        dealerRegistration: 'GorbanSv_CustomerRegistrationPopup/js/popup',
-    },
-    shim: {
-        dealerRegistration: ['jquery']
+var config = {
+    map: {
+        '*': {
+            dealerRegistration: 'GorbanSv_CustomerRegistrationPopup/js/popup'
+        }
     }
 };
