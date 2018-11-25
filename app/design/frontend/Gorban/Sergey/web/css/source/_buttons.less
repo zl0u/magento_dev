@@ -1,0 +1,29 @@
+//
+//  Common
+//  _____________________________________________
+
+
+& when (@media-common = true) {
+
+    //  Using buttons mixins
+    button,
+    a.action.primary {
+        .lib-css(border-radius, @button__border-radius);
+    }
+
+    button {
+        &:active {
+            .lib-css(box-shadow, @button__shadow);
+        }
+    }
+
+    a.action.primary {
+        .lib-link-as-button();
+    }
+
+    .action.primary {
+        background-color: #9400D3;
+        border-color: #000080;
+        color: #FFF;
+    }
+}
