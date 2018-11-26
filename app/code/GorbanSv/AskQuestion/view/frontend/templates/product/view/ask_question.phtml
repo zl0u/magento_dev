@@ -3,9 +3,10 @@
     <h2><?php echo $block->escapeHtml(__('Ask Your Question')) ?></h2>
     <div>
         <form class="form ask-question"
-              action="<?php echo $block->escapeUrl($block->getUrl('request_sample/submit')) ?>"
+              action="<?php echo $block->escapeUrl($block->getUrl('ask_question/submit')) ?>"
               id="ask-question-form"
               method="post"
+              data-mage-init='{"gorbanSv_askQuestion":{}}'
               onsubmit="return false;">
             <fieldset class="fieldset">
                 <legend class="legend">
@@ -49,9 +50,10 @@
                         <input name="telephone"
                                id="telephone"
                                title="<?php echo $block->escapeHtmlAttr(__('Phone Number')) ?>"
-                               placeholder="<?php echo $block->escapeHtmlAttr(__('Enter your phone number')) ?>"
+                               placeholder="<?php echo $block->escapeHtmlAttr(__('Enter your phone number (ukrainian only)')) ?>"
                                class="input-text"
                                type="text"
+                               data-validate="{required:true, 'validation-phone-ua':true}"
                         />
                     </div>
                 </div>
