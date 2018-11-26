@@ -1,7 +1,9 @@
 define([
     'jquery',
-    'Magento_Ui/js/modal/modal',
+    'Magento_Ui/js/modal/modal'
 ], function ($, modal) {
+    'use strict';
+
     return function (config) {
         var options = {
             type: 'popup',
@@ -15,14 +17,13 @@ define([
                     this.closeModal();
                 }
             }]
-        };
+        },
+            popEl = $('#dealer-registration-pop'),
+            popup = modal(options, popEl);
 
-        var pop_el = $('#dealer-registration-pop'),
-            popup = modal(options, pop_el);
-
-        $("#dealer-registration").on('click', function () {
+        $('#dealer-registration').on('click', function () {
             popup.openModal();
-            pop_el.trigger('contentUpdated');
+            popEl.trigger('contentUpdated');
 
             return false;
         });
