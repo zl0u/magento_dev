@@ -38,11 +38,7 @@ define([
          */
         ajaxSubmit: function () {
             var formData = new FormData($(this.element).get(0)),
-                d = new Date(),
-                utc = d.getTime() + (d.getTimezoneOffset() * 60000),
-                nd = new Date(
-                    utc + (3600000 * this.options.timeZoneOffset) + (this.options.cookieLifetime * 60 * 1000)
-                );
+                lifetime = 120;
 
             formData.append('form_key', $.mage.cookies.get('form_key'));
             formData.append('isAjax', 1);
@@ -79,7 +75,7 @@ define([
 
                     if (response.status === 'Success') {
                         $.mage.cookies.set(this.options.cookieName, true, {
-                            expires: nd
+                            lifetime: lifetime
                         });
                     }
                 },
