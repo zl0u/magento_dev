@@ -1,0 +1,87 @@
+<?php /** @var $block \Magento\Catalog\Block\Product\View */ ?>
+<div class="catalog-product-view-tab-ask-question-form">
+    <h2><?php echo $block->escapeHtml(__('Ask Your Question')) ?></h2>
+    <div>
+        <form class="form ask-question"
+              action="<?php echo $block->escapeUrl($block->getUrl('ask_question/submit')) ?>"
+              id="ask-question-form"
+              method="post"
+              data-mage-init='{"gorbanSv_askQuestion":{}}'
+              onsubmit="return false;">
+            <fieldset class="fieldset">
+                <legend class="legend">
+                    <span><?php echo $block->escapeHtml(__('Write Us Some Question')) ?></span>
+                </legend>
+                <br/>
+                <div class="field name required">
+                    <label class="label" for="name">
+                        <span><?php echo $block->escapeHtml(__('Name')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input name="name"
+                               id="name"
+                               title="<?php echo $block->escapeHtmlAttr(__('Name')) ?>"
+                               placeholder="<?php echo $block->escapeHtmlAttr(__('Enter your name')) ?>"
+                               class="input-text" type="text"
+                               data-validate="{required:true}"
+                        />
+                    </div>
+                </div>
+                <div class="field email required">
+                    <label class="label" for="email">
+                        <span><?php echo $block->escapeHtml(__('Email')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input name="email"
+                               id="email"
+                               title="<?php echo $block->escapeHtmlAttr(__('Email')) ?>"
+                               placeholder="<?php echo $block->escapeHtmlAttr(__('Enter tour email')) ?>"
+                               class="input-text"
+                               type="email"
+                               data-validate="{required:true, 'validate-email':true}"
+                        />
+                    </div>
+                </div>
+                <div class="field telephone required">
+                    <label class="label" for="telephone">
+                        <span><?php echo $block->escapeHtml(__('Phone')) ?></span>
+                    </label>
+                    <div class="control">
+                        <input name="telephone"
+                               id="telephone"
+                               title="<?php echo $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                               placeholder="<?php echo $block->escapeHtmlAttr(__('Enter your phone number (ukrainian only)')) ?>"
+                               class="input-text"
+                               type="text"
+                               data-validate="{required:true, 'validation-phone-ua':true}"
+                        />
+                    </div>
+                </div>
+                <div class="field comment required">
+                    <label class="label" for="comment">
+                        <span><?php echo $block->escapeHtml(__('Your Question')) ?></span>
+                    </label>
+                    <div class="control">
+                        <textarea name="comment"
+                                  id="comment"
+                                  title="<?php echo $block->escapeHtmlAttr(__('Your Question')) ?>"
+                                  placeholder="<?php echo $block->escapeHtmlAttr(__('Write your question')) ?>"
+                                  class="input-text"
+                                  cols="5" rows="3"
+                                  data-validate="{required:true}"
+                        ></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <input type="hidden" name="hideit" id="hideit" value=""/>
+                    <button type="submit"
+                            title="<?php echo $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                        <span><?php echo $block->escapeHtml(__('Submit')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
