@@ -1,0 +1,17 @@
+<div id="m2-component" data-bind="scope:'m2kocomponent'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+    {
+        "#m2-component": {
+            "Magento_Ui/js/core/app": {
+               "components": {
+                    "m2kocomponent": {
+                        "component": "Magento_Catalog/js/m2kocomponent",
+                        "template" : "Magento_Catalog/m2kocomponent-template"
+                    }
+                }
+            }
+        }
+    }
+    </script>
+</div>
