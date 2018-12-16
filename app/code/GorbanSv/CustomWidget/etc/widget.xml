@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="gorbansv_banner" class="GorbanSv\CustomWidget\Block\Widget\Banner">
+        <label>HomePage Banner</label>
+        <description>Show HomePage Banner</description>
+        <parameters>
+            <parameter name="cms_block" xsi:type="block"
+                       visible="true"
+                       required="true"
+                       sort_order="10">
+                <label translate="true">Please select your CMS Block</label>
+                <block class="Magento\Cms\Block\Adminhtml\Block\Widget\Chooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select CMS Block</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="button_title" xsi:type="text"
+                       visible="true"
+                       sort_order="20">
+                <label translate="true">Button Title</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
