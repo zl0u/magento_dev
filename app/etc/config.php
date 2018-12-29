@@ -10,6 +10,7 @@ return [
         'GorbanSv_CustomWidget' => 1,
         'GorbanSv_CustomerRegistrationPopup' => 1,
         'GorbanSv_MakeYourStyle' => 1,
+        'GorbanSv_ProductCustomFields' => 1,
         'Magento_Cms' => 1,
         'Magento_Customer' => 1,
         'Magento_AdminNotification' => 1,

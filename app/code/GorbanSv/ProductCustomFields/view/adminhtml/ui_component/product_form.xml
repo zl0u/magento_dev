@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">product_form.custom_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <deps>
+            <dep>product_form.custom_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="custom_data_source" component="Magento_Ui/js/form/provider">
+        <dataProvider class="GorbanSv\ProductCustomFields\Ui\Component\Form\DataProvider" name="custom_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>product_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <modal name="advanced_inventory_modal">
+        <fieldset name="stock_data">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Stock Configuration</item>
+                    <item name="dataScope" xsi:type="string"/>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="custom_toggle">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="sortOrder" xsi:type="number">3000</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="source" xsi:type="string">category</item>
+                        <item name="prefer" xsi:type="string">toggle</item>
+                        <item name="label" xsi:type="string" translate="true">Custom Label</item>
+                        <item name="notice" xsi:type="string">Custom description.</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="string">1</item>
+                            <item name="false" xsi:type="string">0</item>
+                        </item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">false</item>
+                        </item>
+                        <item name="default" xsi:type="string">0</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+    </modal>
+    <fieldset name="file_uploader_attribute_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Custom files</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="string">2</item>
+                <item name="canShow" xsi:type="boolean">true</item>
+                <item name="componentType" xsi:type="string">fieldset</item>
+            </item>
+        </argument>
+        <field name="file_uploader_attribute">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">file</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">file_uploader_attribute</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>
