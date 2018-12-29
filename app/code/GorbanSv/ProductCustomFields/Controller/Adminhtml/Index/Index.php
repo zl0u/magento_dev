@@ -4,17 +4,17 @@ namespace GorbanSv\ProductCustomFields\Controller\Adminhtml\Index;
 
 use Magento\Framework\Controller\ResultFactory;
 
+/**
+ * Class Index
+ * @package GorbanSv\ProductCustomFields\Controller\Adminhtml\Index
+ */
 class Index extends \Magento\Backend\App\Action
 {
     /**
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
+     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        /** @var \Magento\Framework\View\Result\Page $resultPage */
-        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $resultPage ->addHandle('ask_question');
-        $resultPage->getConfig()->getTitle()->prepend(__('Ask Question'));
-        return $resultPage;
+        return $this->resultFactory->create(ResultFactory::TYPE_PAGE);
     }
 }

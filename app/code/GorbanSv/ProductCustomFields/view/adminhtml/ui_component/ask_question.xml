@@ -5,14 +5,11 @@
             <item name="provider" xsi:type="string">ask_question.ask_question_data_source</item>
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
-<!--        <item name="buttons" xsi:type="array">
-            <item name="save" xsi:type="string">GorbanSV\ProductCustomFields\Block\Adminhtml\AskQuestion\SubmitButton</item>
-        </item>-->
     </argument>
     <settings>
-<!--        <buttons>
-            <button name="Submit" class="GorbanSV\ProductCustomFields\Block\Adminhtml\AskQuestion\SubmitButton"/>
-        </buttons>-->
+        <buttons>
+            <button name="Submit" class="GorbanSv\ProductCustomFields\Block\Adminhtml\AskQuestion\SubmitButton"/>
+        </buttons>
         <namespace>ask_question</namespace>
         <dataScope>data</dataScope>
         <deps>
@@ -51,7 +48,7 @@
                 <dataScope>title</dataScope>
             </settings>
         </field>
-<!--        <field name="status" sortOrder="30" formElement="select">
+        <field name="status" sortOrder="30" formElement="select">
             <settings>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
@@ -62,11 +59,11 @@
             <formElements>
                 <select>
                     <settings>
-                        <options class="GorbanSV\ProductCustomFields\Model\Config\Source\Status"/>
+                        <options class="GorbanSv\ProductCustomFields\Model\Config\Source\Status"/>
                     </settings>
                 </select>
             </formElements>
-        </field>-->
+        </field>
         <field name="message" sortOrder="40" formElement="textarea">
             <settings>
                 <validation>
