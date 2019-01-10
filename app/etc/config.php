@@ -7,6 +7,7 @@ return [
         'Magento_Theme' => 1,
         'GorbanSv_AskQuestion' => 1,
         'GorbanSv_CustomModule' => 1,
+        'GorbanSv_CustomWidget' => 1,
         'GorbanSv_CustomerRegistrationPopup' => 1,
         'GorbanSv_MakeYourStyle' => 1,
         'Magento_Cms' => 1,
