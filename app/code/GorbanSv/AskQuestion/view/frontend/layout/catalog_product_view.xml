@@ -10,6 +10,13 @@
                 <arguments>
                     <argument translate="true" name="title" xsi:type="string">Ask Question</argument>
                 </arguments>
+                <block class="GorbanSv\AskQuestion\Block\Questions"
+                       name="questions.list"
+                       template="GorbanSv_AskQuestion::product/view/questions_list.phtml">
+                    <arguments>
+                        <argument name="limit" xsi:type="number">5</argument>
+                    </arguments>
+                </block>
             </block>
         </referenceBlock>
     </body>
