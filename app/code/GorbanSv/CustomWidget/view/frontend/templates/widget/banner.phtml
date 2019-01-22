@@ -2,7 +2,9 @@
 /* @var $block \GorbanSv\CustomWidget\Block\Widget\Banner */
 ?>
 
-<?php if ($button_title = $block->getButtonTitle()) : ?>
+<?php $button_title = $block->getButtonTitle(); ?>
+
+<?php if ($button_title) : ?>
     <button class="button-cms-page">
         <a href="<?php echo $block->getUrl('geekhub-cms') ?>"><?php echo $button_title; ?></a>
     </button>

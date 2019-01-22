@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="GorbanSv_ProductCustomFields::custom_menu"
+             title="Ask Question"
+             module="GorbanSv_ProductCustomFields"
+             sortOrder="9999"
+             parent="Magento_Backend::content_elements"
+             action="ask_question"
+             resource="Magento_Backend::content" />
+    </menu>
+</config>
