@@ -1,4 +1,6 @@
-<?php /** @var $block \Magento\Catalog\Block\Product\View */ ?>
+<?php /** @var \Magento\Catalog\Block\Product\View $block */ ?>
+<?php $product = $block->getProduct(); ?>
+<?php echo $block->getChildHtml('questions.list') ?>
 <div class="catalog-product-view-tab-ask-question-form">
     <h2><?php echo $block->escapeHtml(__('Ask Your Question')) ?></h2>
     <div>
@@ -42,13 +44,13 @@
                         />
                     </div>
                 </div>
-                <div class="field telephone required">
-                    <label class="label" for="telephone">
+                <div class="field phone required">
+                    <label class="label" for="phone">
                         <span><?php echo $block->escapeHtml(__('Phone')) ?></span>
                     </label>
                     <div class="control">
-                        <input name="telephone"
-                               id="telephone"
+                        <input name="phone"
+                               id="phone"
                                title="<?php echo $block->escapeHtmlAttr(__('Phone Number')) ?>"
                                placeholder="<?php echo $block->escapeHtmlAttr(__('Enter your phone number (ukrainian only)')) ?>"
                                class="input-text"
@@ -57,13 +59,13 @@
                         />
                     </div>
                 </div>
-                <div class="field comment required">
-                    <label class="label" for="comment">
+                <div class="field question required">
+                    <label class="label" for="question">
                         <span><?php echo $block->escapeHtml(__('Your Question')) ?></span>
                     </label>
                     <div class="control">
-                        <textarea name="comment"
-                                  id="comment"
+                        <textarea name="question"
+                                  id="question"
                                   title="<?php echo $block->escapeHtmlAttr(__('Your Question')) ?>"
                                   placeholder="<?php echo $block->escapeHtmlAttr(__('Write your question')) ?>"
                                   class="input-text"
@@ -76,6 +78,9 @@
             <div class="actions-toolbar">
                 <div class="primary">
                     <input type="hidden" name="hideit" id="hideit" value=""/>
+                    <input type="hidden" name="sku" value="<?php echo $block->escapeHtml($product->getSku()) ?>"/>
+                    <input type="hidden" name="product_name"
+                                         value="<?php echo $block->escapeHtml($product->getName()) ?>"/>
                     <button type="submit"
                             title="<?php echo $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
                         <span><?php echo $block->escapeHtml(__('Submit')) ?></span>

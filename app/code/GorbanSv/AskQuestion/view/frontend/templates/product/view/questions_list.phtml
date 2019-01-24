@@ -1,0 +1,13 @@
+<?php /** @var \GorbanSv\AskQuestion\Block\Questions $block */
+    $questions = $block->getQuestions();
+?>
+
+<?php if ($questions) : ?>
+    <h2><?php echo $block->escapeHtml(__('Questions')) ?></h2>
+    <ul>
+        <?php /** @var \GorbanSv\AskQuestion\Model\AskQuestion $question */
+        foreach ($questions as $question) : ?>
+            <li><?php echo $question->getQuestion() . __('Requested by %1 at %2', $question->getName(), $question->getCreatedAt()) ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?> 
