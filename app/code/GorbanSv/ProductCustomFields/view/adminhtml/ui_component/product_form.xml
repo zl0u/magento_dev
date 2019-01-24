@@ -3,20 +3,24 @@
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">product_form.custom_data_source</item>
+            <item name="provider" xsi:type="string">product_form.custom_product_form_data_source</item>
         </item>
-        <item name="template" xsi:type="string">templates/form/collapsible</item>
     </argument>
     <settings>
         <deps>
-            <dep>product_form.custom_data_source</dep>
+            <dep>product_form.custom_product_form_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="custom_data_source" component="Magento_Ui/js/form/provider">
-        <dataProvider class="GorbanSv\ProductCustomFields\Ui\Component\Form\DataProvider" name="custom_data_source">
+    <dataSource name="custom_product_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider class="GorbanSv\ProductCustomFields\Ui\Component\Form\DataProvider" name="custom_product_form_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
-                <primaryFieldName>product_id</primaryFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>
