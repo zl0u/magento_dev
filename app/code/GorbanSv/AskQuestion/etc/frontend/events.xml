@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="ask_question_save_before">
+        <observer name="gorbansv_ask_question"
+                  instance="GorbanSv\AskQuestion\Observer\Model\SaveBefore"
+        />
+    </event>
+    <event name="ask_question_collection_load_before">
+        <observer name="gorbansv_ask_question"
+                  instance="GorbanSv\AskQuestion\Observer\Model\ResourceModel\LoadBefore"
+        />
+    </event>
+    <event name="layout_load_before">
+        <observer name="gorbansv_ask_question"
+                  instance="GorbanSv\AskQuestion\Observer\Catalog\Layout\Product\View\RenderBefore"
+        />
+    </event>
+</config>

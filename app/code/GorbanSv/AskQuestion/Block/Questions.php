@@ -49,8 +49,7 @@ class Questions extends \Magento\Framework\View\Element\Template
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
 
-        $collection->addStoreFilter()
-            ->addFieldToFilter('sku', $this->registry->registry('product')->getSku())
+        $collection->addFieldToFilter('sku', $this->registry->registry('product')->getSku())
             ->getSelect()
             ->orderRand();
 

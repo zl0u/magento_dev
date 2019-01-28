@@ -9,6 +9,20 @@ namespace GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion;
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     /**
+     * Name prefix of events that are dispatched by model
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'ask_question_collection';
+
+    /**
+     * Name of event parameter
+     *
+     * @var string
+     */
+    protected $_eventObject = 'ask_question_collection_object';
+
+    /**
      * @var string
      */
     protected $_idFieldName = 'question_id';
@@ -57,7 +71,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      * @return Collection
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
-    public function addStoreFilter(int $storeId = 0): self
+    public function addStoreFilter(int $storeId = 0)
     {
         if (!$storeId) {
             $storeId = (int) $this->storeManager->getStore()->getId();
