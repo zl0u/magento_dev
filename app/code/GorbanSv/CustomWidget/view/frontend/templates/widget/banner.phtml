@@ -8,9 +8,6 @@
     </button>
 <?php endif; ?>
 
-<?php if ($block->getData('cms_block')): ?>
-    <?php echo $block->getLayout()
-                     ->createBlock('Magento\Cms\Block\Block')
-                     ->setBlockId($block->getData('cms_block'))
-                     ->toHtml(); ?>
+<?php if ($cmsBlock = $block->getCmsBlockHtml()): ?>
+    <?php echo $cmsBlock; ?>
 <?php endif; ?>

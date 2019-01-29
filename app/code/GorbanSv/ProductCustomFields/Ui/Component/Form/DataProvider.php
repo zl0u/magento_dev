@@ -2,55 +2,22 @@
 
 namespace GorbanSv\ProductCustomFields\Ui\Component\Form;
 
-use Magento\Cron\Model\ResourceModel\Schedule\CollectionFactory;
+use Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider;
 
 /**
  * Class DataProvider
+ * @package GorbanSv\ProductCustomFields\Ui\Component\Form
  */
-class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
+class DataProvider extends ProductDataProvider
 {
     /**
-     * @var \Magento\Cron\Model\ResourceModel\Schedule\Collection
-     */
-    protected $collection;
-    /**
-     * @var array
-     */
-    protected $loadedData;
-    /**
-     * Constructor
-     *
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
-     * @param CollectionFactory $blockCollectionFactory
-     * @param array $meta
-     * @param array $data
-     */
-    public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
-        CollectionFactory $blockCollectionFactory,
-        array $meta = [],
-        array $data = []
-    ) {
-        $this->collection = $blockCollectionFactory->create();
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
-    }
-    /**
-     * Get data
-     *
+     * Get Meta
      * @return array
      */
-    public function getData()
-    {
-        return [];
-    }
-    public function getMeta()
+    public function getMeta() : array
     {
         $meta = parent::getMeta();
-        $meta['general']['children']['custom_field'] = [
+        $meta['content']['children']['custom_field'] = [
             'arguments' => [
                 'data' => [
                     'config' => [
