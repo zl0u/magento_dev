@@ -3,6 +3,7 @@
 namespace GorbanSv\AskQuestion\Model;
 
 use GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion as AskQuestionResource;
+use Magento\Framework\Model\AbstractModel;
 
 /**
  * Class AskQuestion
@@ -27,8 +28,15 @@ use GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion as AskQuestionResource;
  * @method int|string getStoreId()
  * @method AskQuestion setStoreId(int $storeId)
  */
-class AskQuestion extends \Magento\Framework\Model\AbstractModel
+class AskQuestion extends AbstractModel
 {
+    /**
+     * Prefix of model events names
+     *
+     * @var string
+     */
+    protected $_eventPrefix = 'ask_question';
+
     public const STATUS_PENDING = 'pending';
     public const STATUS_PROCESSED = 'processed';
 

@@ -9,6 +9,11 @@ use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Component\ComponentRegistrar;
 use Magento\Store\Model\Store;
 use GorbanSv\AskQuestion\Model\AskQuestion;
+use GorbanSv\AskQuestion\Model\AskQuestionFactory;
+use Magento\Framework\File\Csv;
+use Magento\Framework\DB\TransactionFactory;
+use Magento\Eav\Setup\EavSetupFactory;
+use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 
 /**
  * Class UpgradeData
@@ -17,42 +22,50 @@ use GorbanSv\AskQuestion\Model\AskQuestion;
 class UpgradeData implements UpgradeDataInterface
 {
     /**
-     * @var \GorbanSv\AskQuestion\Model\AskQuestionFactory
+     * @var AskQuestionFactory
      */
     private $askQuestionFactory;
-    
+
     /**
-     * @var \Magento\Framework\File\Csv $csv
+     * @var Csv
      */
     private $csv;
-    
+
     /**
-     * @var \Magento\Framework\Component\ComponentRegistrar $componentRegistrar
+     * @var ComponentRegistrar
      */
     private $componentRegistrar;
     
     /**
-     * @var \Magento\Framework\DB\TransactionFactory
+     * @var EavSetupFactory
      */
     private $transactionFactory;
-    
+
+    /**
+     * @var EavSetupFactory
+     */
+    private $eavSetupFactory;
+
     /**
      * UpgradeData constructor.
-     * @param \GorbanSv\AskQuestion\Model\AskQuestionFactory $askQuestionFactory
-     * @param \Magento\Framework\Component\ComponentRegistrar $componentRegistrar
-     * @param \Magento\Framework\File\Csv $csv
-     * @param \Magento\Framework\DB\TransactionFactory $transactionFactory
+     * @param AskQuestionFactory $askQuestionFactory
+     * @param ComponentRegistrar $componentRegistrar
+     * @param Csv $csv
+     * @param TransactionFactory $transactionFactory
+     * @param EavSetupFactory $eavSetupFactory
      */
     public function __construct(
-        \GorbanSv\AskQuestion\Model\AskQuestionFactory $askQuestionFactory,
-        \Magento\Framework\Component\ComponentRegistrar $componentRegistrar,
-        \Magento\Framework\File\Csv $csv,
-        \Magento\Framework\DB\TransactionFactory $transactionFactory
+        AskQuestionFactory $askQuestionFactory,
+        ComponentRegistrar $componentRegistrar,
+        Csv $csv,
+        TransactionFactory $transactionFactory,
+        EavSetupFactory $eavSetupFactory
     ) {
         $this->askQuestionFactory = $askQuestionFactory;
         $this->componentRegistrar = $componentRegistrar;
         $this->csv = $csv;
         $this->transactionFactory = $transactionFactory;
+        $this->eavSetupFactory = $eavSetupFactory;
     }
 
     /**
@@ -86,8 +99,39 @@ class UpgradeData implements UpgradeDataInterface
             $transaction->save();
         }
 
-        if (version_compare($context->getVersion(), '1.0.3') < 0) {
+        if (version_compare($context->getVersion(), '1.0.2') < 0) {
             $this->updateDataForAskQuestion($setup, 'import_data.csv');
+        }
+
+        if (version_compare($context->getVersion(), '1.0.3') < 0) {
+            $eavSetup = $this->eavSetupFactory->create(['setup' => $setup]);
+
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Product::ENTITY,
+                'show_questions_form',
+                [
+                    'type' => 'int',
+                    'backend' => 'Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend',
+                    'frontend' => '',
+                    'label' => 'Show Questions Form',
+                    'input' => 'select',
+                    'group' => 'General',
+                    'class' => '',
+                    'source' => \Magento\Eav\Model\Entity\Attribute\Source\Boolean::class,
+                    'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
+                    'visible' => true,
+                    'required' => true,
+                    'user_defined' => false,
+                    'default' => '1',
+                    'searchable' => false,
+                    'filterable' => false,
+                    'comparable' => false,
+                    'visible_on_front' => false,
+                    'used_in_product_listing' => true,
+                    'unique' => false,
+                    'sort_order' => 20
+                ]
+            );
         }
 
         $setup->endSetup();
