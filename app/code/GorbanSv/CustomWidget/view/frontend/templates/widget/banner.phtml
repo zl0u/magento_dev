@@ -2,12 +2,12 @@
 /* @var $block \GorbanSv\CustomWidget\Block\Widget\Banner */
 ?>
 
-<?php if ($block->getData('button_title')): ?>
+<?php $button_title = $block->getButtonTitle(); ?>
+
+<?php if ($button_title) : ?>
     <button class="button-cms-page">
-        <a href="<?php echo $block->getUrl('geekhub-cms') ?>"><?php echo $block->getData('button_title') ?></a>
+        <a href="<?php echo $block->getUrl('geekhub-cms') ?>"><?php echo $button_title; ?></a>
     </button>
 <?php endif; ?>
 
-<?php if ($cmsBlock = $block->getCmsBlockHtml()): ?>
-    <?php echo $cmsBlock; ?>
-<?php endif; ?>
+<?php echo $block->getStaticContent(); ?>
