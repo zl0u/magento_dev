@@ -1,0 +1,19 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="GorbanSv\ModuleOop\Model\DiParams">
+        <arguments>
+            <argument name="stringParam" xsi:type="string">someStringValue</argument>
+            <argument name="instanceParam" xsi:type="object">GorbanSv\ModuleOop\Model\DirContents</argument>
+            <argument name="boolParam" xsi:type="boolean">1</argument>
+            <argument name="intParam" xsi:type="number">1</argument>
+            <argument name="globalInitParam"
+                      xsi:type="init_parameter">GorbanSv\ModuleOop\Model\DirContents::DIRCONTENTS_CONST</argument>
+            <argument name="constantParam"
+                      xsi:type="const">GorbanSv\ModuleOop\Model\DirContents::DIRCONTENTS_CONST</argument>
+            <argument name="optionalParam" xsi:type="null"/>
+            <argument name="arrayParam" xsi:type="array">
+                <item name="firstElem" xsi:type="null"/>
+                <item name="secondElem" xsi:type="string">second Elem Value</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

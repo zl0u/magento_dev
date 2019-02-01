@@ -53,7 +53,6 @@ class Banner extends Template implements BlockInterface
         $this->filterProvider = $filterProvider;
         $this->storeManager = $context->getStoreManager();
         $this->logger = $context->getLogger();
-
         parent::__construct($context, $data);
     }
 
@@ -67,7 +66,6 @@ class Banner extends Template implements BlockInterface
         } catch (\Exception $e) {
             $this->logger->warning($e->getMessage());
         }
-
         return false;
     }
 
@@ -78,14 +76,12 @@ class Banner extends Template implements BlockInterface
     public function getStaticContent()
     {
         $staticBlock = $this->getStaticBlock();
-
         if ($staticBlock && $staticBlock->isActive()) {
             return $this->filterProvider
-                        ->getBlockFilter()
-                        ->setStoreId($this->storeManager->getStore()->getId())
-                        ->filter($staticBlock->getContent());
+                ->getBlockFilter()
+                ->setStoreId($this->storeManager->getStore()->getId())
+                ->filter($staticBlock->getContent());
         }
-
         return __('Static block content not found');
     }
 }
