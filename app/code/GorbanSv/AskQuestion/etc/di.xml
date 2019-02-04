@@ -14,4 +14,13 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="product_update_qty" xsi:type="object">
+                    GorbanSv\AskQuestion\Console\Command\ProductUpdateQty
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>
