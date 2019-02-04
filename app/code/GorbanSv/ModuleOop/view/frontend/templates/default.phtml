@@ -4,42 +4,42 @@
 
 <div class="content-wrapper">
     <h1>
-        <span>Module Oop</span>
+        <span><?php echo __('Module Oop')?></span>
     </h1>
 
-    <?php if ($di_params = $block->getDiParams()) : ?>
-        <h2>DI Params</h2>
-        <?php foreach ($di_params as $param_key => $param_value) : ?>
-            <strong>Param Key:</strong><br> <?php echo $param_key; ?><br>
-            <strong>Param Value:</strong><br>
-            <?php if (is_array($param_value)) : ?>
-                <?php foreach ($param_value as $param_item_key => $param_item_value) : ?>
-                    <?php echo $param_item_key; ?> =>
-                    <?php echo is_null($param_item_value) ? 'null' : $param_item_value; ?><br>
+    <?php if ($diParams = $block->getDiParams()) : ?>
+        <h2><?php echo __('DI Params')?></h2>
+        <?php foreach ($diParams as $paramKey => $paramValue) : ?>
+            <strong><?php echo __('Param Key')?>:</strong><br> <?php echo $paramKey; ?><br>
+            <strong><?php echo __('Param Value')?>:</strong><br>
+            <?php if (is_array($paramValue)) : ?>
+                <?php foreach ($paramValue as $paramItemKey => $paramItemValue) : ?>
+                    <?php echo $paramItemKey; ?> =>
+                    <?php echo is_null($paramItemValue) ? 'null' : $paramItemValue; ?><br>
                 <?php endforeach; ?>
             <?php else : ?>
-                <?php echo is_null($param_value) ? 'null' : $param_value; ?><br>
+                <?php echo is_null($paramValue) ? 'null' : $paramValue; ?><br>
             <?php endif; ?><br>
         <?php endforeach; ?>
     <?php endif; ?>
 
     <?php if ($methods = $block->getMethods()) : ?>
-        <h2>Methods</h2>
+        <h2><?php echo __('Methods')?></h2>
         <?php foreach ($methods as $method) : ?>
             <div><?php echo $method->name; ?></div>
         <?php endforeach; ?>
     <?php endif; ?>
 
     <?php if ($constants = $block->getConstants()) : ?>
-        <h2>Constants</h2>
-        <?php foreach ($constants as $constant_name => $constant_value) : ?>
-            <div><?php echo $constant_name; ?> = <?php echo $constant_value; ?></div>
+        <h2><?php echo __('Constants')?></h2>
+        <?php foreach ($constants as $constantName => $constantValue) : ?>
+            <div><?php echo $constantName; ?> = <?php echo $constantValue; ?></div>
         <?php endforeach; ?>
     <?php endif; ?>
 
-    <?php if ($dir_contents = $block->getDirContents()) : ?>
-        <h2>Directories/files list</h2>
-        <?php foreach ($dir_contents as $item => $date) : ?>
+    <?php if ($dirContents = $block->getDirContents()) : ?>
+        <h2><?php echo __('Directories/files list')?></h2>
+        <?php foreach ($dirContents as $item => $date) : ?>
             <div><?php echo $item; ?> (<?php echo $date; ?>)</div>
         <?php endforeach; ?>
     <?php endif; ?>
