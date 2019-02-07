@@ -4,7 +4,7 @@ namespace GorbanSv\AskQuestion\Observer\Model\ResourceModel;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion\Collection as AskQuestionCollection;
+use Magento\Framework\Registry;
 
 /**
  * Class LoadBefore
@@ -12,11 +12,14 @@ use GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion\Collection as AskQuesti
  */
 class LoadBefore implements ObserverInterface
 {
-    private $askQuestionCollection;
+    /**
+     * @var Registry 
+     */
+    private $registry;
 
-    public function __construct(AskQuestionCollection $askQuestionCollection)
+    public function __construct(Registry $registry)
     {
-        $this->askQuestionCollection = $askQuestionCollection;
+        $this->registry = $registry;
     }
 
     /**
@@ -24,6 +27,8 @@ class LoadBefore implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        $this->askQuestionCollection->addStoreFilter(2);
+        $observer->getEvent()
+                 ->getData('ask_question_collection_object')
+                 ->addFieldToFilter('sku', $this->registry->registry('product')->getSku());
     }
 }
