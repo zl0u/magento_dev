@@ -16,6 +16,6 @@ class Collection
      */
     public function beforeLoad(AskQuestionCollection $subject)
     {
-        $subject->addStoreFilter();
+        #$subject->addStoreFilter();
     }
 }
