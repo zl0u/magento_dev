@@ -13,7 +13,7 @@ use Magento\Framework\Registry;
 class LoadBefore implements ObserverInterface
 {
     /**
-     * @var Registry 
+     * @var Registry
      */
     private $registry;
 
@@ -27,8 +27,10 @@ class LoadBefore implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        $observer->getEvent()
-                 ->getData('ask_question_collection_object')
-                 ->addFieldToFilter('sku', $this->registry->registry('product')->getSku());
+        if ($this->registry->registry('product') !== null) {
+            $observer->getEvent()
+                ->getData('ask_question_collection_object')
+                ->addFieldToFilter('sku', $this->registry->registry('product')->getSku());
+        }
     }
 }
