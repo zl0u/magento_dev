@@ -8,6 +8,7 @@ use GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion\Collection;
 use GorbanSv\AskQuestion\Model\ResourceModel\AskQuestion\CollectionFactory;
 use Magento\Framework\DB\Transaction;
 use Magento\Framework\DB\TransactionFactory;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 /**
  * Class ChangeStatus
@@ -19,6 +20,10 @@ class ChangeStatus
      * @var int
      */
     private $days = 3;
+    /**
+     * @var TimezoneInterface
+     */
+    private $timezone;
     /**
      * @var LoggerInterface
      */
@@ -36,15 +41,18 @@ class ChangeStatus
      * @param LoggerInterface $logger
      * @param CollectionFactory $collectionFactory
      * @param TransactionFactory $transactionFactory
+     * @param TimezoneInterface $timezone
      */
     public function __construct(
         LoggerInterface $logger,
         CollectionFactory $collectionFactory,
-        TransactionFactory $transactionFactory
+        TransactionFactory $transactionFactory,
+        TimezoneInterface $timezone
     ) {
         $this->logger = $logger;
         $this->collectionFactory = $collectionFactory;
         $this->transactionFactory = $transactionFactory;
+        $this->timezone = $timezone;
     }
 
     /**
@@ -52,7 +60,9 @@ class ChangeStatus
      */
     public function execute()
     {
-        $statusChangeDate = date('Y-m-d H:i:s', strtotime('-' . $this->days . ' day', time()));
+        $statusChangeDate = $this->timezone->date()
+            ->sub(new \DateInterval('P'.$this->days.'D'))
+            ->format('Y-m-d H:i:s');
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
         $collection->addFieldToFilter('created_at', ['lteq' => $statusChangeDate])
@@ -60,12 +70,10 @@ class ChangeStatus
                    ->getSelect();
         /** @var Transaction $transaction */
         $transaction = $this->transactionFactory->create();
-
         foreach ($collection as $item) {
             $item->setStatus(AskQuestion::STATUS_PROCESSED);
             $transaction->addObject($item);
         }
-
         $transaction->save();
         $this->logger->info('Cron job for change question status is implemented! Changed - ' . count($collection));
     }
