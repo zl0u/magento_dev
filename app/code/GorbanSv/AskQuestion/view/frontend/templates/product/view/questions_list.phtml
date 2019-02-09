@@ -7,7 +7,8 @@
     <ul>
         <?php /** @var \GorbanSv\AskQuestion\Model\AskQuestion $question */
         foreach ($questions as $question) : ?>
-            <li><?php echo $question->getQuestion() . __('Requested by %1 at %2', $question->getName(), $question->getCreatedAt()) ?></li>
+            <li><?php echo $question->getQuestion() .
+                    ' ' . __('Requested by %1 at %2', $question->getName(), $question->getCreatedAt()) ?></li>
         <?php endforeach; ?>
     </ul>
 <?php endif; ?> 
