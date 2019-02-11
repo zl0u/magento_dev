@@ -5,6 +5,7 @@ namespace GorbanSv\AskQuestion\Observer\Catalog\Layout\Product\View;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Registry;
+use GorbanSv\AskQuestion\Helper\Config\Data;
 
 /**
  * Class RenderBefore
@@ -12,6 +13,11 @@ use Magento\Framework\Registry;
  */
 class RenderBefore implements ObserverInterface
 {
+    /**
+     * @var Data
+     */
+    private $helper;
+
     /**
      * @var Registry
      */
@@ -21,9 +27,12 @@ class RenderBefore implements ObserverInterface
      * RenderBefore constructor.
      * @param Registry $registry
      */
-    public function __construct(Registry $registry)
-    {
+    public function __construct(
+        Registry $registry,
+        Data $helper
+    ) {
         $this->registry = $registry;
+        $this->helper = $helper;
     }
 
     /**
@@ -38,7 +47,7 @@ class RenderBefore implements ObserverInterface
             return $this;
         }
 
-        if ($product->getShowQuestionsForm()) {
+        if ($this->helper->isEnabled() && $product->getShowQuestionsForm()) {
             $layout = $observer->getLayout();
             $layout->getUpdate()->addHandle('ask_question');
         }
