@@ -21,18 +21,22 @@ class ChangeStatus
      * @var Data
      */
     private $helper;
+
     /**
      * @var TimezoneInterface
      */
     private $timezone;
+
     /**
      * @var LoggerInterface
      */
     private $logger;
+
     /**
      * @var CollectionFactory
      */
     private $collectionFactory;
+
     /**
      * @var TransactionFactory
      */
