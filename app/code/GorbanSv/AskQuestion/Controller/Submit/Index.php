@@ -1,10 +1,13 @@
 <?php
+
 namespace GorbanSv\AskQuestion\Controller\Submit;
 
 use GorbanSv\AskQuestion\Model\AskQuestion;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
+use GorbanSv\AskQuestion\Helper\Mail;
+use GorbanSv\AskQuestion\Helper\Config\Data;
 
 /**
  * Class Index
@@ -26,19 +29,35 @@ class Index extends \Magento\Framework\App\Action\Action
     private $askQuestionFactory;
 
     /**
+     * @var Mail
+     */
+    private $mailHelper;
+
+    /**
+     * @var Data
+     */
+    private $configData;
+
+    /**
      * Index constructor.
+     * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \GorbanSv\AskQuestion\Model\AskQuestionFactory $askQuestionFactory
-     * @param \Magento\Framework\App\Action\Context $context
+     * @param Mail $mailHelper
+     * @param Data $configData
      */
     public function __construct(
+        \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \GorbanSv\AskQuestion\Model\AskQuestionFactory $askQuestionFactory,
-        \Magento\Framework\App\Action\Context $context
+        Mail $mailHelper,
+        Data $configData
     ) {
         parent::__construct($context);
         $this->formKeyValidator = $formKeyValidator;
         $this->askQuestionFactory = $askQuestionFactory;
+        $this->mailHelper = $mailHelper;
+        $this->configData = $configData;
     }
 
     /**
@@ -70,6 +89,16 @@ class Index extends \Magento\Framework\App\Action\Action
                         ->setQuestion($request->getParam('question'));
 
             $askQuestion->save();
+
+            /**
+             * Send Email
+             */
+            if ($this->configData->isEnabledEmailNotifications() && $request->getParam('email')) {
+                $email = $request->getParam('email');
+                $customerName = $request->getParam('name');
+                $message = $request->getParam('question');
+                $this->mailHelper->sendMail($email, $customerName, $message);
+            }
 
             $data = [
                 'status' => self::STATUS_SUCCESS,

@@ -42,4 +42,16 @@ class Data extends AbstractHelper
             $scope
         );
     }
+
+    /**
+     * @param string $scope
+     * @return bool
+     */
+    public function isEnabledEmailNotifications($scope = ScopeConfigInterface::SCOPE_TYPE_DEFAULT) : bool
+    {
+        return $this->scopeConfig->isSetFlag(
+            'customer_question_general_options/additional/enable_email_notifications',
+            $scope
+        );
+    }
 }
