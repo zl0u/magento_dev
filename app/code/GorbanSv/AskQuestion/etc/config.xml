@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer_question_general_options>
+            <general>
+                <enable>1</enable>
+            </general>
+            <cron_options>
+                <enable_auto_confirming>1</enable_auto_confirming>
+                <cron_frequency>W</cron_frequency>
+            </cron_options>
+            <test>
+                <customer_question_text>Custom Text</customer_question_text>
+                <customer_question_multiselect>
+                    <first_entry>
+                        <label>First entry</label>
+                    </first_entry>
+                    <second_entry>
+                        <label>Second entry</label>
+                    </second_entry>
+                </customer_question_multiselect>
+            </test>
+        </customer_question_general_options>
+    </default>
+</config>
