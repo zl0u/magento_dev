@@ -48,7 +48,11 @@
             </group>
             <group id="additional" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Additional</label>
-                <field id="emails" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="enable_email_notifications" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Email Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="emails" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Additional Emails</label>
                     <frontend_model>GorbanSv\AskQuestion\Model\Config\Form\Field\AdditionalEmail</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
