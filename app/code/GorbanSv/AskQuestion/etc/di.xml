@@ -23,4 +23,10 @@
             </argument>
         </arguments>
     </type>
+    <preference for="GorbanSv\AskQuestion\Api\Data\AskQuestionSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="GorbanSv\AskQuestion\Api\Data\AskQuestionInterface"
+                type="GorbanSv\AskQuestion\Model\AskQuestion" />
+    <preference for="GorbanSv\AskQuestion\Api\AskQuestionRepositoryInterface"
+                type="GorbanSv\AskQuestion\Model\AskQuestionRepository" />
 </config>
