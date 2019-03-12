@@ -6,6 +6,7 @@ return [
         'Magento_Eav' => 1,
         'Magento_Theme' => 1,
         'GorbanSv_AskQuestion' => 1,
+        'GorbanSv_CustomCheckout' => 1,
         'GorbanSv_CustomModule' => 1,
         'GorbanSv_CustomWidget' => 1,
         'GorbanSv_CustomerRegistrationPopup' => 1,
