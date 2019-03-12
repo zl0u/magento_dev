@@ -2,7 +2,8 @@
 
 namespace GorbanSv\AskQuestion\Controller\Submit;
 
-use GorbanSv\AskQuestion\Model\AskQuestion;
+use GorbanSv\AskQuestion\Api\Data\AskQuestionInterface;
+use GorbanSv\AskQuestion\Api\AskQuestionRepositoryInterface;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
@@ -29,6 +30,11 @@ class Index extends \Magento\Framework\App\Action\Action
     private $askQuestionFactory;
 
     /**
+     * @var AskQuestionRepositoryInterface
+     */
+    private $askQuestionRepository;
+
+    /**
      * @var Mail
      */
     private $mailHelper;
@@ -43,6 +49,7 @@ class Index extends \Magento\Framework\App\Action\Action
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator
      * @param \GorbanSv\AskQuestion\Model\AskQuestionFactory $askQuestionFactory
+     * @param AskQuestionRepositoryInterface $askQuestionRepository
      * @param Mail $mailHelper
      * @param Data $configData
      */
@@ -50,12 +57,14 @@ class Index extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\Data\Form\FormKey\Validator $formKeyValidator,
         \GorbanSv\AskQuestion\Model\AskQuestionFactory $askQuestionFactory,
+        AskQuestionRepositoryInterface $askQuestionRepository,
         Mail $mailHelper,
         Data $configData
     ) {
         parent::__construct($context);
         $this->formKeyValidator = $formKeyValidator;
         $this->askQuestionFactory = $askQuestionFactory;
+        $this->askQuestionRepository = $askQuestionRepository;
         $this->mailHelper = $mailHelper;
         $this->configData = $configData;
     }
@@ -78,7 +87,7 @@ class Index extends \Magento\Framework\App\Action\Action
                 throw new LocalizedException(__('This request is not valid and can not be processed.'));
             }
 
-            /** @var AskQuestion $askQuestion */
+            /** @var AskQuestionInterface $askQuestion */
             $askQuestion = $this->askQuestionFactory->create();
 
             $askQuestion->setName($request->getParam('name'))
@@ -88,7 +97,7 @@ class Index extends \Magento\Framework\App\Action\Action
                         ->setSku($request->getParam('sku'))
                         ->setQuestion($request->getParam('question'));
 
-            $askQuestion->save();
+            $this->askQuestionRepository->save($askQuestion);
 
             /**
              * Send Email

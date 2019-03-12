@@ -8,6 +8,11 @@
                         <resource id="GorbanSv_AskQuestion::customer_questions_menu" title="Customer Questions" translate="title" sortOrder="50" />
                     </resource>
                 </resource>
+                <resource id="Magento_Backend::content">
+                    <resource id="Magento_Backend::content_elements">
+                        <resource id="GorbanSv_AskQuestion::manage" title="Manage Ask Question" sortOrder="50" />
+                    </resource>
+                </resource>
             </resource>
         </resources>
     </acl>
