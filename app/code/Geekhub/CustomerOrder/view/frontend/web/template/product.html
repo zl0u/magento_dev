@@ -1,0 +1,32 @@
+<li id="product" data-bind="visible: isVisible">
+    <h3>Products</h3>
+    <div>
+        <span translate="'Search'"/><span>
+        <input data-bind="value:request"></span>
+    </div>
+    <if args="products().length">
+        <div>
+            <span>ID</span>
+            <span>Name</span>
+            <span>SKU</span>
+            <span>Price</span>
+            <span>Select</span>
+        </div>
+        <each args="data: products, as: 'product'">
+            <div>
+                <span data-bind="html: product.id"/>
+                <span text="product.name"/>
+                <span text="product.sku"/>
+                <span text="product.price"/>
+                <span data-bind="click: function() { $parent.chooseProduct(product) }">Choose Product</span>
+            </div>
+        </each>
+
+        <a href="#" data-bind="click: nextAction">Next</a>
+
+    </if>
+    <ifnot args="products().length">
+        <div translate="'Sorry, no products found.'"/>
+        <div data-bind="i18n: 'i18n Test'"/>
+    </ifnot>
+</li>
