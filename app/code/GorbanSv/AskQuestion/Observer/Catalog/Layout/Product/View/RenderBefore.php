@@ -6,6 +6,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Registry;
 use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Customer\Model\Group as CustomerGroupCollection;
 use GorbanSv\AskQuestion\Helper\Config\Data;
 
 /**
@@ -30,19 +31,39 @@ class RenderBefore implements ObserverInterface
     private $customerSession;
 
     /**
+     * @var CustomerGroupCollection
+     */
+    private $customerGroupCollection;
+
+    /**
      * RenderBefore constructor.
      * @param Registry $registry
      * @param Data $helper
      * @param CustomerSession $customerSession
+     * @param CustomerGroupCollection $customerGroupCollection
      */
     public function __construct(
         Registry $registry,
         Data $helper,
-        CustomerSession $customerSession
+        CustomerSession $customerSession,
+        CustomerGroupCollection $customerGroupCollection
     ) {
         $this->registry = $registry;
         $this->helper = $helper;
         $this->customerSession = $customerSession;
+        $this->customerGroupCollection = $customerGroupCollection;
+    }
+
+    /**
+     * Get Customer Group
+     * @return string
+     */
+    protected function getCustomerGroup()
+    {
+        $currentGroupId = $this->customerSession->getCustomer()->getGroupId();
+        $collection = $this->customerGroupCollection->load($currentGroupId);
+        $customerGroupCode = $collection->getCustomerGroupCode();
+        return $customerGroupCode;
     }
 
     /**
@@ -60,7 +81,8 @@ class RenderBefore implements ObserverInterface
         if (
             $this->helper->isEnabled() &&
             $product->getShowQuestionsForm() &&
-            !$this->customerSession->getCustomer()->getDisallowAskQuestion()
+            !$this->customerSession->getCustomer()->getDisallowAskQuestion() &&
+            $this->getCustomerGroup() !== 'Forbidden for Ask Question'
         ) {
             $layout = $observer->getLayout();
             $layout->getUpdate()->addHandle('ask_question');

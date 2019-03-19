@@ -14,6 +14,8 @@ use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 use Magento\Customer\Model\Customer;
 use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
+use Magento\Customer\Model\GroupFactory;
+use Magento\Customer\Model\ResourceModel\GroupRepository;
 use GorbanSv\AskQuestion\Model\AskQuestion;
 use GorbanSv\AskQuestion\Model\AskQuestionFactory;
 
@@ -54,6 +56,16 @@ class UpgradeData implements UpgradeDataInterface
     private $customerAttribute;
 
     /**
+     * @var GroupFactory
+     */
+    private $groupFactory;
+
+    /**
+     * @var GroupRepository
+     */
+    private $groupRepository;
+
+    /**
      * UpgradeData constructor.
      * @param AskQuestionFactory $askQuestionFactory
      * @param ComponentRegistrar $componentRegistrar
@@ -61,6 +73,8 @@ class UpgradeData implements UpgradeDataInterface
      * @param TransactionFactory $transactionFactory
      * @param EavSetupFactory $eavSetupFactory
      * @param \Magento\Customer\Model\Attribute $customerAttribute
+     * @param GroupFactory $groupFactory
+     * @param GroupRepository $groupRepository
      */
     public function __construct(
         AskQuestionFactory $askQuestionFactory,
@@ -68,7 +82,9 @@ class UpgradeData implements UpgradeDataInterface
         Csv $csv,
         TransactionFactory $transactionFactory,
         EavSetupFactory $eavSetupFactory,
-        \Magento\Customer\Model\Attribute $customerAttribute
+        \Magento\Customer\Model\Attribute $customerAttribute,
+        GroupFactory $groupFactory,
+        GroupRepository $groupRepository
     ) {
         $this->askQuestionFactory = $askQuestionFactory;
         $this->componentRegistrar = $componentRegistrar;
@@ -76,6 +92,8 @@ class UpgradeData implements UpgradeDataInterface
         $this->transactionFactory = $transactionFactory;
         $this->eavSetupFactory = $eavSetupFactory;
         $this->customerAttribute = $customerAttribute;
+        $this->groupFactory = $groupFactory;
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -148,7 +166,25 @@ class UpgradeData implements UpgradeDataInterface
             $this->createDisallowAskQuestionCustomerAttribute($setup);
         }
 
+        if (version_compare($context->getVersion(), '1.0.5') < 0) {
+            $this->createDisallowAskQuestionCustomerGroup($setup);
+        }
+
         $setup->endSetup();
+    }
+
+    /**
+     * @param $setup
+     * @throws \Exception
+     */
+    public function createDisallowAskQuestionCustomerGroup($setup)
+    {
+        // Create the new group
+        /** @var \Magento\Customer\Model\Group $group */
+        $group = $this->groupFactory->create();
+        $group->setCode('Forbidden for Ask Question')
+            ->setTaxClassId($this->groupRepository::DEFAULT_TAX_CLASS_ID)
+            ->save();
     }
 
     /**
