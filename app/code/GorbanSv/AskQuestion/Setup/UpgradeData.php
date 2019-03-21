@@ -16,6 +16,9 @@ use Magento\Customer\Model\Customer;
 use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
 use Magento\Customer\Model\GroupFactory;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
+use Magento\Customer\Setup\CustomerSetupFactory;
+use Magento\Eav\Model\Entity\Attribute\Set as AttributeSet;
+use Magento\Eav\Model\Entity\Attribute\SetFactory as AttributeSetFactory;
 use GorbanSv\AskQuestion\Model\AskQuestion;
 use GorbanSv\AskQuestion\Model\AskQuestionFactory;
 
@@ -66,6 +69,16 @@ class UpgradeData implements UpgradeDataInterface
     private $groupRepository;
 
     /**
+     * @var CustomerSetupFactory
+     */
+    protected $customerSetupFactory;
+
+    /**
+     * @var AttributeSetFactory
+     */
+    private $attributeSetFactory;
+
+    /**
      * UpgradeData constructor.
      * @param AskQuestionFactory $askQuestionFactory
      * @param ComponentRegistrar $componentRegistrar
@@ -84,7 +97,9 @@ class UpgradeData implements UpgradeDataInterface
         EavSetupFactory $eavSetupFactory,
         \Magento\Customer\Model\Attribute $customerAttribute,
         GroupFactory $groupFactory,
-        GroupRepository $groupRepository
+        GroupRepository $groupRepository,
+        CustomerSetupFactory $customerSetupFactory,
+        AttributeSetFactory $attributeSetFactory
     ) {
         $this->askQuestionFactory = $askQuestionFactory;
         $this->componentRegistrar = $componentRegistrar;
@@ -94,6 +109,8 @@ class UpgradeData implements UpgradeDataInterface
         $this->customerAttribute = $customerAttribute;
         $this->groupFactory = $groupFactory;
         $this->groupRepository = $groupRepository;
+        $this->customerSetupFactory = $customerSetupFactory;
+        $this->attributeSetFactory = $attributeSetFactory;
     }
 
     /**
@@ -170,6 +187,10 @@ class UpgradeData implements UpgradeDataInterface
             $this->createDisallowAskQuestionCustomerGroup($setup);
         }
 
+        if (version_compare($context->getVersion(), '1.0.6') < 0) {
+            $this->createCorpusAddressCustomerAttribute($setup);
+        }
+
         $setup->endSetup();
     }
 
@@ -185,6 +206,43 @@ class UpgradeData implements UpgradeDataInterface
         $group->setCode('Forbidden for Ask Question')
             ->setTaxClassId($this->groupRepository::DEFAULT_TAX_CLASS_ID)
             ->save();
+    }
+
+    public function createCorpusAddressCustomerAttribute($setup)
+    {
+        $customerSetup = $this->customerSetupFactory->create(['setup' => $setup]);
+
+        $customerEntity = $customerSetup->getEavConfig()->getEntityType('customer');
+        $attributeSetId = $customerEntity->getDefaultAttributeSetId();
+
+        /** @var $attributeSet AttributeSet */
+        $attributeSet = $this->attributeSetFactory->create();
+        $attributeGroupId = $attributeSet->getDefaultGroupId($attributeSetId);
+
+        $customerSetup->addAttribute('customer_address', 'corpus', [
+            'type' => 'varchar',
+            'label' => 'Corpus',
+            'input' => 'text',
+            'required' => false,
+            'visible' => true,
+            'user_defined' => true,
+            'sort_order' => 1000,
+            'position' => 1000,
+            'system' => 0,
+        ]);
+
+        $attribute = $customerSetup->getEavConfig()->getAttribute('customer_address', 'corpus')
+            ->addData([
+                'attribute_set_id' => $attributeSetId,
+                'attribute_group_id' => $attributeGroupId,
+                'used_in_forms' => [
+                    'adminhtml_customer_address',
+                    'customer_address_edit',
+                    'customer_register_address',
+                ],
+            ]);
+
+        $attribute->save();
     }
 
     /**
