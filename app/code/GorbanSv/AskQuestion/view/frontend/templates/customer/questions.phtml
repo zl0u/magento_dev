@@ -1,0 +1,19 @@
+<?php /** @var GorbanSv\AskQuestion\Block\Questions $block */ ?>
+<?php /** @var Magento\Framework\View\TemplateEngine\Php $this */ ?>
+<table>
+    <tr>
+        <th><?php echo __('Date'); ?></th>
+        <th><?php echo __('Question'); ?></th>
+        <th><?php echo __('Product'); ?></th>
+        <th><?php echo __('Status'); ?></th>
+    </tr>
+
+    <?php foreach($block->getQuestions(10, 'created_at DESC') as $question): ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($question->getCreatedAt()) ?></td>
+            <td><?php echo $this->escapeHtml($question->getQuestion()) ?></td>
+            <td><?php echo $this->escapeHtml($question->getProductName()) ?></td>
+            <td><?php echo $this->escapeHtml($question->getStatus()) ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
